@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - Eirene Kezia Samangun</title>
     <style>
-        /* Modern Minimalist TRUE BLACK CSS Styling */
+        /* Modern Tech-Noir Gradient CSS Styling */
         * {
             margin: 0;
             padding: 0;
@@ -13,7 +13,8 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background-color: #000000; /* Mengubah latar belakang menjadi Hitam Pekat */
+            /* Latar belakang hitam dengan sentuhan gradasi ungu malam yang mewah */
+            background: linear-gradient(135deg, #09090b 0%, #110c1f 100%); 
             color: #e2e8f0;
             display: flex;
             justify-content: center;
@@ -24,48 +25,75 @@
         .container {
             max-width: 500px;
             width: 100%;
-            background: #121212; /* Warna box abu-abu gelap agar kontras dengan background hitam */
+            background: rgba(18, 18, 24, 0.8); /* Transparan gelap kekinian */
+            backdrop-filter: blur(10px); /* Efek kaca buram (glassmorphism) */
             padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(255,255,255,0.02);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 50px rgba(99, 102, 241, 0.05);
             text-align: center;
-            border: 1px solid #1f1f1f;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .profile-wrapper {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            /* Efek lingkaran gradasi neon menyala di belakang foto */
+            background: linear-gradient(45deg, #6366f1, #a855f7, #ec4899);
+            padding: 3px;
+            border-radius: 50%;
         }
         .profile-img {
-            width: 110px;
-            height: 110px;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
-            margin: 0 auto 15px;
-            object-fit: cover; /* Biar foto proporsional & tidak gepeng */
-            border: 2px solid #ffffff; /* Frame putih tipis melingkari foto */
+            object-fit: cover; /* KUNCI: Foto akan dipotong proporsional di tengah, TIDAK GEPENG LAGI */
+            background: #18181b;
+            display: block;
         }
         h1 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             margin-bottom: 5px;
             color: #ffffff;
+            font-weight: 700;
         }
         .sub-title {
             font-size: 0.85rem;
-            color: #a3a3a3;
+            /* Teks jabatan menggunakan warna gradasi cyan-biru menyala */
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
         .bio {
             font-size: 0.85rem;
-            color: #a3a3a3;
+            color: #94a3b8;
             margin-bottom: 25px;
-            line-height: 1.5;
+            line-height: 1.6;
             text-align: justify;
         }
         .section-title {
             text-align: left;
             font-size: 1.1rem;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             color: #ffffff;
-            border-bottom: 1px solid #262626;
-            padding-bottom: 5px;
+            font-weight: 600;
+            position: relative;
+            padding-left: 12px;
+        }
+        /* Garis vertikal penanda dekoratif berwarna ungu di sebelah kiri judul */
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 3px;
+            height: 16px;
+            width: 4px;
+            background: linear-gradient(#a855f7, #6366f1);
+            border-radius: 2px;
         }
         .skills-container {
             display: flex;
@@ -75,13 +103,18 @@
             justify-content: left;
         }
         .skill-badge {
-            background: #1a1a1a;
-            color: #e5e5e5;
-            padding: 6px 12px;
+            background: rgba(39, 39, 42, 0.6);
+            color: #f4f4f5;
+            padding: 6px 14px;
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 500;
-            border: 1px solid #262626;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.2s;
+        }
+        .skill-badge:hover {
+            border-color: #6366f1;
+            background: rgba(99, 102, 241, 0.1);
         }
         .list-container {
             margin-bottom: 25px;
@@ -93,16 +126,22 @@
             width: 5px;
         }
         .list-container::-webkit-scrollbar-thumb {
-            background: #262626;
+            background: rgba(63, 63, 70, 0.5);
             border-radius: 4px;
         }
         .card {
-            background: #1a1a1a;
-            padding: 12px 15px;
-            border-radius: 8px;
+            background: rgba(24, 24, 27, 0.7);
+            padding: 14px 16px;
+            border-radius: 12px;
             text-align: left;
-            margin-bottom: 10px;
-            border-left: 4px solid #ffffff; /* Aksen garis kiri diubah jadi putih minimalis */
+            margin-bottom: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(99, 102, 241, 0.2);
+            background: rgba(24, 24, 27, 0.9);
         }
         .card h3 {
             font-size: 0.95rem;
@@ -110,19 +149,19 @@
         }
         .card .role {
             font-size: 0.85rem;
-            color: #a3a3a3;
+            color: #cbd5e1;
             font-weight: 500;
             margin: 2px 0;
         }
         .card .year {
             font-size: 0.8rem;
-            color: #525252;
-            margin-bottom: 5px;
+            color: #71717a;
+            margin-bottom: 6px;
         }
         .card p {
             font-size: 0.8rem;
-            color: #a3a3a3;
-            line-height: 1.4;
+            color: #94a3b8;
+            line-height: 1.5;
         }
         .btn-container {
             display: flex;
@@ -134,34 +173,41 @@
             display: block;
             text-decoration: none;
             padding: 12px;
-            border-radius: 8px;
-            font-weight: bold;
+            border-radius: 10px;
+            font-weight: 600;
             font-size: 0.95rem;
-            transition: 0.2s;
+            transition: 0.3s;
+            text-align: center;
         }
+        /* Tombol LinkedIn dengan gradasi biru premium */
         .btn-linkedin {
-            background: #ffffff; /* Tombol putih teks hitam terkesan luxury */
-            color: #000000;
+            background: linear-gradient(to right, #0077b5, #00a0dc);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 119, 181, 0.2);
         }
         .btn-linkedin:hover {
-            background: #e5e5e5;
+            opacity: 0.9;
+            transform: translateY(-1px);
         }
+        /* Tombol Instagram dengan tema gelap bergaris gradasi tipis */
         .btn-instagram {
-            background: #1a1a1a;
+            background: #18181b;
             color: #ffffff;
-            border: 1px solid #262626;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .btn-instagram:hover {
-            background: #262626;
+            background: #27272a;
+            border-color: #ec4899;
         }
         .email-link {
             display: inline-block;
-            color: #737373;
+            color: #71717a;
             text-decoration: none;
             font-size: 0.85rem;
+            transition: 0.2s;
         }
         .email-link:hover {
-            color: #ffffff;
+            color: #a855f7;
         }
     </style>
 </head>
@@ -169,8 +215,10 @@
 
     <div class="container">
         <!-- Profile Section -->
-        <!-- ATTENTION: Gantilah "foto-eirene.jpg" dengan nama file foto aslimu nanti -->
-        <img src="foto-eirene.jpg" alt="Eirene Kezia Samangun" class="profile-img">
+        <div class="profile-wrapper">
+            <!-- Ingat: nama file gambar di folder kamu harus sama persis dengan yang tertulis di src di bawah ini -->
+            <img src="foto-eirene.jpg" alt="Eirene Kezia Samangun" class="profile-img">
+        </div>
         
         <h1>Eirene Kezia Samangun</h1>
         <div class="sub-title">Telecommunication Engineering Student</div>
@@ -192,7 +240,7 @@
         <!-- Education Section -->
         <h2 class="section-title">Education</h2>
         <div style="margin-bottom: 25px;">
-            <div class="card" style="border-left-color: #525252;">
+            <div class="card" style="border-left: 4px solid #a855f7;">
                 <h3>Telkom University</h3>
                 <div class="role">Bachelor of Telecommunication Engineering</div>
                 <div class="year">2023 - Present</div>
@@ -203,14 +251,14 @@
         <h2 class="section-title">Experience & Organizations</h2>
         <div class="list-container">
             <!-- Internship at PT RTI -->
-            <div class="card" style="border-left-color: #ffffff;">
+            <div class="card" style="border-left: 4px solid #22c55e;">
                 <h3>PT. Radar Telekomunikasi Indonesia</h3>
                 <div class="role">Antenna Designer (Intern)</div>
                 <div class="year">June 2026 - July 2026</div>
                 <p>Responsible for designing and simulating antennas using CST Studio Suite software to support telecommunication radar development projects.</p>
             </div>
             <!-- MBC Lab -->
-            <div class="card" style="border-left-color: #ffffff;">
+            <div class="card" style="border-left: 4px solid #ef4444;">
                 <h3>MBC Laboratory</h3>
                 <div class="role">Laboratory Teaching Assistant</div>
                 <div class="sub-role" style="font-size: 0.75rem; color: #a3a3a3; margin-bottom: 3px;">Mobile Application, Big Data, and Cybersecurity</div>
@@ -218,42 +266,7 @@
                 <p>Guided laboratory practicums, assisted students in understanding technical course materials, and supported laboratory research initiatives.</p>
             </div>
             <!-- DPA HMTT Treasurer -->
-            <div class="card">
+            <div class="card" style="border-left: 4px solid #6366f1;">
                 <h3>DPA HMTT</h3>
                 <div class="role">Treasurer</div>
                 <div class="year">Present</div>
-                <p>Managed organizational budgeting, financial reporting, and fund allocation while ensuring transparency and supporting effective decision-making across multiple divisions.</p>
-            </div>
-            <!-- UKM PERMISI President -->
-            <div class="card">
-                <h3>UKM PERMISI Tel-U</h3>
-                <div class="role">President</div>
-                <div class="year">2024 - 2025</div>
-                <p>Led organization planning, decision-making, and execution across programs.</p>
-            </div>
-            <!-- DPA HMTT Commission 2 -->
-            <div class="card">
-                <h3>DPA HMTT</h3>
-                <div class="role">Parliamentary Staff – Commission 2</div>
-                <div class="year">2024 - 2025</div>
-                <p>Handled Legislative aspirations, documentation, and coordinated parliamentary visitation.</p>
-            </div>
-            <!-- UKM PERMISI Coordinator -->
-            <div class="card">
-                <h3>UKM PERMISI Tel-U</h3>
-                <div class="role">Financial Source Department Coordinator</div>
-                <div class="year">2023 - 2024</div>
-                <p>Directed fundraising strategies and ensured financial support for programs.</p>
-            </div>
-            <!-- Kepanitiaan Committees -->
-            <div class="card">
-                <h3>Campus Committees (ASTERISK & GATHRAK)</h3>
-                <div class="role">Event Execution Committee Member / Treasurer</div>
-                <div class="year">2025</div>
-                <p>Assisted in event logistics, coordination, and operational execution for ASTERISK, and managed budgeting, financial reporting, and expenditure tracking for GATHRAK.</p>
-            </div>
-        </div>
-
-        <!-- Call to Action Links -->
-        <div class="btn-container">
-            <a href="https://linkedin.com" target="_blank" class="social-btn btn-linkedin">Connect on LinkedIn</a>
