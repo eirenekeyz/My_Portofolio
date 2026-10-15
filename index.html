@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Eirene Kezia Samangun</title>
+    <style>
+        /* Modern Minimalist CSS Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #0f172a; 
+            color: #e2e8f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #38bdf8; 
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #0f172a;
+            font-size: 1.5rem;
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: #f8fafc;
+        }
+        .sub-title {
+            font-size: 0.85rem;
+            color: #38bdf8;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .bio {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            text-align: justify;
+        }
+        .section-title {
+            text-align: left;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: #38bdf8;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 5px;
+        }
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
+            justify-content: left;
+        }
+        .skill-badge {
+            background: #111827;
+            color: #e2e8f0;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid #334155;
+        }
+        .list-container {
+            margin-bottom: 25px;
+            max-height: 380px;
+            overflow-y: auto; /* Scrollable container for mobile friendly view */
+            padding-right: 5px;
+        }
+        /* Custom scrollbar styling */
+        .list-container::-webkit-scrollbar {
+            width: 5px;
+        }
+        .list-container::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        .card {
+            background: #111827;
+            padding: 12px 15px;
+            border-radius: 8px;
+            text-align: left;
+            margin-bottom: 10px;
+            border-left: 4px solid #38bdf8;
+        }
+        .card h3 {
+            font-size: 0.95rem;
+            color: #f1f5f9;
+        }
+        .card .role {
+            font-size: 0.85rem;
+            color: #38bdf8;
+            font-weight: 500;
+            margin: 2px 0;
+        }
+        .card .year {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+        .card p {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .social-btn {
+            display: block;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
+        .btn-linkedin {
+            background: #0077b5;
+            color: #ffffff;
+        }
+        .btn-linkedin:hover {
+            background: #005987;
+        }
+        .btn-instagram {
+            background: #38bdf8;
+            color: #0f172a;
+        }
+        .btn-instagram:hover {
+            background: #0ea5e9;
+        }
+        .email-link {
+            display: inline-block;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+        .email-link:hover {
+            color: #38bdf8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Profile Section -->
+        <div class="profile-img">EKS</div>
+        <h1>Eirene Kezia Samangun</h1>
+        <div class="sub-title">Telecommunication Engineering Student</div>
+        <p class="bio">
+            Telecommunication Engineering student at Telkom University with strong analytical, organizational, leadership, and technical skills. Experienced in antenna design, financial management, team coordination, and student organization leadership. Adaptable, fast learner, and motivated to contribute in academic, organizational, and professional environments.
+        </p>
+
+        <!-- Technical Skills Section -->
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skills-container">
+            <div class="skill-badge">CST Studio Suite</div>
+            <div class="skill-badge">MATLAB</div>
+            <div class="skill-badge">VS Code</div>
+            <div class="skill-badge">Docker</div>
+            <div class="skill-badge">Cisco Packet Tracer</div>
+            <div class="skill-badge">Python / C++</div>
+        </div>
+
+        <!-- Education Section -->
+        <h2 class="section-title">Education</h2>
+        <div style="margin-bottom: 25px;">
+            <div class="card" style="border-left-color: #a855f7;">
+                <h3>Telkom University</h3>
+                <div class="role">Bachelor of Telecommunication Engineering</div>
+                <div class="year">2023 - Present</div>
+            </div>
+        </div>
+
+        <!-- Experience Section -->
+        <h2 class="section-title">Experience & Organizations</h2>
+        <div class="list-container">
+            <!-- Internship at PT RTI -->
+            <div class="card" style="border-left-color: #22c55e;">
+                <h3>PT. Radar Telekomunikasi Indonesia</h3>
+                <div class="role">Antenna Designer (Intern)</div>
+                <div class="year">June 2026 - July 2026</div>
+                <p>Responsible for designing and simulating antennas using CST Studio Suite software to support telecommunication radar development projects.</p>
+            </div>
+            <!-- MBC Lab -->
+            <div class="card" style="border-left-color: #f43f5e;">
+                <h3>MBC Laboratory</h3>
+                <div class="role">Laboratory Teaching Assistant</div>
+                <div class="sub-role" style="font-size: 0.75rem; color: #94a3b8; margin-bottom: 3px;">Mobile Application, Big Data, and Cybersecurity</div>
+                <div class="year">Present</div>
+                <p>Guided laboratory practicums, assisted students in understanding technical course materials, and supported laboratory research initiatives.</p>
+            </div>
+            <!-- DPA HMTT Treasurer -->
+            <div class="card">
+                <h3>DPA HMTT</h3>
+                <div class="role">Treasurer</div>
+                <div class="year">Present</div>
+                <p>Managed organizational budgeting, financial reporting, and fund allocation while ensuring transparency and supporting effective decision-making across multiple divisions.</p>
+            </div>
+            <!-- UKM PERMISI President -->
+            <div class="card">
+                <h3>UKM PERMISI Tel-U</h3>
+                <div class="role">President</div>
+                <div class="year">2024 - 2025</div>
+                <p>Led organization planning, decision-making, and execution across programs.</p>
+            </div>
+            <!-- DPA HMTT Commission 2 -->
+            <div class="card">
+                <h3>DPA HMTT</h3>
+                <div class="role">Parliamentary Staff – Commission 2</div>
+                <div class="year">2024 - 2025</div>
+                <p>Handled Legislative aspirations, documentation, and coordinated parliamentary visitation.</p>
+            </div>
+            <!-- UKM PERMISI Coordinator -->
+            <div class="card">
+                <h3>UKM PERMISI Tel-U</h3>
+                <div class="role">Financial Source Department Coordinator</div>
+                <div class="year">2023 - 2024</div>
+                <p>Directed fundraising strategies and ensured financial support for programs.</p>
+            </div>
+            <!-- Kepanitiaan Committees -->
+            <div class="card">
+                <h3>Campus Committees (ASTERISK & GATHRAK)</h3>
+                <div class="role">Event Execution Committee Member / Treasurer</div>
+                <div class="year">2025</div>
+                <p>Assisted in event logistics, coordination, and operational execution for ASTERISK, and managed budgeting, financial reporting, and expenditure tracking for GATHRAK.</p>
+            </div>
+        </div>
+
+        <!-- Call to Action Links -->
+        <div class="btn-container">
+            <a href="https://www.linkedin.com/in/eirene-kezia-5a8085342?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" class="social-btn btn-linkedin">Connect on LinkedIn</a>
+            <a href="https://instagram.com" target="_blank" class="social-btn btn-instagram">Connect on Instagram</a>
+        </div>
+        
+        <a href="mailto:eirenekezias@gmail.com" class="email-link">eirenekezias@gmail.com</a>
+    </div>
+
+</body>
+</html>
