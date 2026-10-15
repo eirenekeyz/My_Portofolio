@@ -12,7 +12,6 @@
             color: #e2e8f0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 0 20px; overflow-x: hidden;
         }
 
-        /* PERBAIKAN: Mengubah background header menjadi transparan kaca (blur-glassmorphism) */
         .fixed-header-zone {
             position: fixed; top: 0; left: 0; width: 100%; height: 90px;
             background: rgba(10, 10, 14, 0.3); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -27,12 +26,10 @@
         .header-section { position: relative; width: 100%; height: auto; margin-bottom: 40px; }
         .tagline { font-size: 0.85rem; background: linear-gradient(to right, #06b6d4, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; transition: all 0.4s ease; }
         
-        /* Mengunci transisi judul utama */
         h1 { 
             font-size: 2.8rem; font-weight: 800; line-height: 1.15; color: #ffffff; letter-spacing: -1px;
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); transform-origin: top left; display: block;
         }
-        /* PERBAIKAN: Teks mengecil diganti langsung di skrip JavaScript, style di sini disesuaikan */
         h1.shrink {
             position: fixed; top: 32px; left: 8%; font-size: 1.25rem; font-weight: 700; max-width: 450px;
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis; z-index: 1000;
@@ -59,14 +56,26 @@
         .skill-badge { background: rgba(15, 23, 42, 0.6); color: #06b6d4; padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; border: 1px solid rgba(6, 182, 212, 0.3); transition: all 0.3s ease; }
         
         .list-container { width: 100%; }
+        
+        /* KARDUS DENGAN LINGKARAN GLOW STABIL & GARIS KIRI CYAN SERAGAM */
         .card { 
             width: 100%; background: rgba(15, 23, 42, 0.5); padding: 22px; border-radius: 16px; margin-bottom: 18px; 
             border: 1px solid rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px);
+            border-left: 4px solid #06b6d4 !important; /* SERAGAM: Semua pembatas kiri diganti Cyan siber */
             opacity: 0; transform: translateY(35px) scale(0.97); 
             transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
         }
-        .card.reveal { opacity: 1; transform: translateY(0 scale(1)); }
-        .card:hover { border-color: rgba(6, 182, 212, 0.4); background: rgba(30, 27, 75, 0.4); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5); transform: translateY(-4px); }
+        .card.reveal { opacity: 1; transform: translateY(0) scale(1); }
+        
+        /* Efek Timbul Kursor khusus Desktop Monitor */
+        @media (min-width: 851px) {
+            .card:hover { 
+                border-color: rgba(6, 182, 212, 0.4); 
+                background: rgba(30, 27, 75, 0.4); 
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(6, 182, 212, 0.15); 
+                transform: translateY(-4px); 
+            }
+        }
         
         .card h3 { font-size: 1.05rem; color: #ffffff; font-weight: 600; }
         .card .role { font-size: 0.88rem; color: #06b6d4; font-weight: 500; margin: 4px 0 2px 0; }
@@ -79,6 +88,7 @@
         .email-link { color: #64748b; text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
         .email-link:hover { color: #06b6d4; }
         
+        /* PENYESUAIAN PENDARAN KHUSUS DI HP AGAR KREATIF WALAU TANPA MOUSE */
         @media (max-width: 850px) {
             .main-wrapper { grid-template-columns: 1fr; gap: 40px; }
             .right-column { grid-row: 1; }
@@ -86,6 +96,8 @@
             .profile-wrapper { width: 240px; height: 240px; }
             .profile-wrapper.shrink { width: 45px; height: 45px; right: 5%; }
             h1 { font-size: 2.3rem; }
+            /* Mengubah kotak di HP memiliki sedikit pendaran siber otomatis tanpa dihover */
+            .card { background: rgba(30, 27, 75, 0.25) !important; border-color: rgba(6, 182, 212, 0.15) !important; }
         }
     </style>
 </head>
@@ -109,7 +121,7 @@
             </div>
 
             <h2 class="section-title">Education</h2>
-            <div class="card reveal" style="border-left: 4px solid #d946ef !important;">
+            <div class="card reveal">
                 <h3>Telkom University</h3>
                 <div class="role">Bachelor of Telecommunication Engineering</div>
                 <div class="year">2023 - Present</div>
@@ -135,7 +147,7 @@
                 </div>
 
                 <!-- 3. PT Radar Telekomunikasi Indonesia -->
-                <div class="card" style="border-left: 4px solid #22c55e !important;">
+                <div class="card">
                     <h3>PT. Radar Telekomunikasi Indonesia</h3>
                     <div class="role">Antenna Designer (Intern)</div>
                     <div class="year">June 2026 - July 2026</div>
@@ -189,7 +201,7 @@
         </div>
     </div>
 
-    <!-- SCRIPT ANIMASI SCROLL INTERAKTIF (PERBAIKAN KACA TRANSPARAN & TEKS LOG IN NAMA) -->
+    <!-- SCRIPT ANIMASI SCROLL INTERAKTIF BOLAK-BALIK -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const cards = document.querySelectorAll('.card');
@@ -198,7 +210,6 @@
             const headerZone = document.getElementById('headerZone');
             const taglineText = document.getElementById('taglineText');
 
-            // Simpan teks asli awal agar bisa dikembalikan saat scroll ke paling atas
             const originalText = mainTitle.innerText;
 
             window.addEventListener('scroll', () => {
@@ -207,16 +218,12 @@
                     mainTitle.classList.add('shrink');
                     profileBox.classList.add('shrink');
                     taglineText.style.opacity = '0';
-                    
-                    // KUNCI PERUBAHAN TEKS: Mengubah teks menjadi nama kamu saat mengecil ke atas
                     mainTitle.innerText = "Hi, I'm Eirene Kezia Samangun";
                 } else {
                     headerZone.classList.remove('active');
                     mainTitle.classList.remove('shrink');
                     profileBox.classList.remove('shrink');
                     taglineText.style.opacity = '1';
-                    
-                    // Mengembalikan kalimat awal saat discroll kembali ke paling atas
                     mainTitle.innerText = originalText;
                 }
             });
