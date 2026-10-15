@@ -9,34 +9,32 @@
         
         body { 
             background: linear-gradient(135deg, #020617 0%, #0f172a 40%, #1e1b4b 75%, #311042 100%);
-            color: #e2e8f0; min-height: 200vh; display: flex; flex-direction: column; align-items: center; padding: 0 20px; overflow-x: hidden;
+            color: #e2e8f0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 0 20px; overflow-x: hidden;
         }
 
-        /* CONTAINER NAVIGASI ATAS YANG AKAN MENAMPUNG ELEMEN KETIKA DI-SCROLL */
+        /* PERBAIKAN: Mengubah background header menjadi transparan kaca (blur-glassmorphism) */
         .fixed-header-zone {
             position: fixed; top: 0; left: 0; width: 100%; height: 90px;
-            background: rgba(5, 5, 10, 0.8); backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03); z-index: 999;
+            background: rgba(10, 10, 14, 0.3); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05); z-index: 999;
             opacity: 0; pointer-events: none; transition: all 0.4s ease;
         }
         .fixed-header-zone.active { opacity: 1; pointer-events: auto; }
 
-        /* AREA UTAMA STRUKTUR GRID */
         .main-wrapper { max-width: 1100px; width: 100%; display: grid; grid-template-columns: 65% 35%; gap: 50px; align-items: flex-start; padding-top: 100px; }
         .left-column { text-align: left; width: 100%; }
         
-        /* HEADER TRANSISI: Judul utama dan kontainer foto dikunci agar bisa bertransisi mulus */
         .header-section { position: relative; width: 100%; height: auto; margin-bottom: 40px; }
+        .tagline { font-size: 0.85rem; background: linear-gradient(to right, #06b6d4, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; transition: all 0.4s ease; }
         
-        .tagline { font-size: 0.85rem; background: linear-gradient(to right, #06b6d4, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; transition: all 0.5s ease; }
-        
-        /* Gaya Animasi Judul Utama saat mengecil ke kiri atas */
+        /* Mengunci transisi judul utama */
         h1 { 
             font-size: 2.8rem; font-weight: 800; line-height: 1.15; color: #ffffff; letter-spacing: -1px;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); transform-origin: top left;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); transform-origin: top left; display: block;
         }
+        /* PERBAIKAN: Teks mengecil diganti langsung di skrip JavaScript, style di sini disesuaikan */
         h1.shrink {
-            position: fixed; top: 28px; left: 8%; font-size: 1.2rem; max-width: 450px;
+            position: fixed; top: 32px; left: 8%; font-size: 1.25rem; font-weight: 700; max-width: 450px;
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis; z-index: 1000;
         }
 
@@ -44,7 +42,6 @@
         .section-title { font-size: 1.3rem; color: #ffffff; font-weight: 600; margin: 40px 0 20px 0; position: relative; padding-left: 14px; }
         .section-title::before { content: ''; position: absolute; left: 0; top: 3px; height: 18px; width: 4px; background: linear-gradient(#06b6d4, #d946ef); border-radius: 2px; }
         
-        /* Gaya Animasi Foto Profil saat mengecil mengambang ke kanan atas */
         .right-column { display: flex; justify-content: center; width: 100%; }
         .profile-wrapper { 
             position: relative; width: 340px; height: 340px; 
@@ -68,7 +65,7 @@
             opacity: 0; transform: translateY(35px) scale(0.97); 
             transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
         }
-        .card.reveal { opacity: 1; transform: translateY(0) scale(1); }
+        .card.reveal { opacity: 1; transform: translateY(0 scale(1)); }
         .card:hover { border-color: rgba(6, 182, 212, 0.4); background: rgba(30, 27, 75, 0.4); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5); transform: translateY(-4px); }
         
         .card h3 { font-size: 1.05rem; color: #ffffff; font-weight: 600; }
@@ -85,7 +82,7 @@
         @media (max-width: 850px) {
             .main-wrapper { grid-template-columns: 1fr; gap: 40px; }
             .right-column { grid-row: 1; }
-            h1.shrink { max-width: 200px; left: 5%; }
+            h1.shrink { max-width: 220px; left: 5%; }
             .profile-wrapper { width: 240px; height: 240px; }
             .profile-wrapper.shrink { width: 45px; height: 45px; right: 5%; }
             h1 { font-size: 2.3rem; }
@@ -93,14 +90,12 @@
     </style>
 </head>
 <body>
-    <!-- BASE UTAMA FIXED BANNER DI ATAS SAAT SCROLL -->
     <div class="fixed-header-zone" id="headerZone"></div>
     <div class="main-wrapper">
         <!-- Kolom Kiri: Konten Informasi Lengkap -->
         <div class="left-column">
             <div class="header-section">
                 <div class="tagline" id="taglineText">Telecommunication Engineering Student</div>
-                <!-- H1 Diberi ID Agar JavaScript Bisa Mengontrol Efek Shrink -->
                 <h1 id="mainTitle">Engineering the future of connectivity through data and design.</h1>
             </div>
 
@@ -186,7 +181,7 @@
             </div>
         </div>
 
-        <!-- Kolom Kanan: Kontainer Foto Profil dengan ID untuk Animasi Morphing -->
+        <!-- Kolom Kanan: Foto Profil -->
         <div class="right-column">
             <div class="profile-wrapper" id="profileBox">
                 <img src="foto-eirene.jpg" alt="Eirene Kezia Samangun" class="profile-img">
@@ -194,7 +189,7 @@
         </div>
     </div>
 
-    <!-- SKRIP UTAMA PENGENDALI SCROLL ANIMASI BOLAK-BALIK & MORPHING FLOATING HEADER -->
+    <!-- SCRIPT ANIMASI SCROLL INTERAKTIF (PERBAIKAN KACA TRANSPARAN & TEKS LOG IN NAMA) -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const cards = document.querySelectorAll('.card');
@@ -203,24 +198,29 @@
             const headerZone = document.getElementById('headerZone');
             const taglineText = document.getElementById('taglineText');
 
-            // 1. LOGIKA UTAMA MORPHING HEADER SAAT DI-SCROLL
+            // Simpan teks asli awal agar bisa dikembalikan saat scroll ke paling atas
+            const originalText = mainTitle.innerText;
+
             window.addEventListener('scroll', () => {
-                // Memicu perubahan jika layar di-scroll lebih dari 120 piksel
                 if (window.scrollY > 120) {
                     headerZone.classList.add('active');
                     mainTitle.classList.add('shrink');
                     profileBox.classList.add('shrink');
-                    taglineText.style.opacity = '0'; // Menyembunyikan tagline kecil agar bersih
+                    taglineText.style.opacity = '0';
+                    
+                    // KUNCI PERUBAHAN TEKS: Mengubah teks menjadi nama kamu saat mengecil ke atas
+                    mainTitle.innerText = "Hi, I'm Eirene Kezia Samangun";
                 } else {
-                    // Mengembalikan komponen ke posisi semula saat berada di atas
                     headerZone.classList.remove('active');
                     mainTitle.classList.remove('shrink');
                     profileBox.classList.remove('shrink');
                     taglineText.style.opacity = '1';
+                    
+                    // Mengembalikan kalimat awal saat discroll kembali ke paling atas
+                    mainTitle.innerText = originalText;
                 }
             });
 
-            // 2. INTERSECTION OBSERVER UNTUK ANIMASI KARTU BOLAK-BALIK
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
@@ -230,8 +230,8 @@
                     }
                 });
             }, { 
-                threshold: 0.1,
-                rootMargin: "0px 0px -40px 0px"
+                threshold: 0.1, 
+                rootMargin: "0px 0px -40px 0px" 
             });
             
             cards.forEach(card => observer.observe(card));
