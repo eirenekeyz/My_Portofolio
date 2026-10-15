@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - Eirene Kezia Samangun</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
+        
         body { 
             background: linear-gradient(135deg, #020617 0%, #0f172a 40%, #1e1b4b 75%, #311042 100%);
             color: #e2e8f0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 0 20px; overflow-x: hidden;
         }
+
         .fixed-header-zone {
             position: fixed; top: 0; left: 0; width: 100%; height: 90px;
             background: rgba(10, 10, 14, 0.3); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -17,50 +19,85 @@
             opacity: 0; pointer-events: none; transition: all 0.4s ease;
         }
         .fixed-header-zone.active { opacity: 1; pointer-events: auto; }
+
+        /* --- 🛠️ 1. STYLING TOREK / TOMBOL GARIS TIGA (HAMBURGER MENU) --- */
+        .menu-toggle {
+            position: fixed; top: 25px; right: 5%; width: 40px; height: 40px;
+            background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px; z-index: 1001; cursor: pointer;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px;
+            transition: all 0.3s ease; backdrop-filter: blur(10px);
+        }
+        .menu-toggle:hover { border-color: #06b6d4; background: rgba(30, 27, 75, 0.6); }
+        .menu-toggle .bar { width: 20px; height: 2px; background-color: #ffffff; transition: all 0.3s ease; }
+        
+        /* Animasi Garis Tiga berubah jadi silang (X) saat diklik */
+        .menu-toggle.open .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .menu-toggle.open .bar:nth-child(2) { opacity: 0; }
+        .menu-toggle.open .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* --- 🛠️ 2. PANEL MENU KACA YANG MUNCUL DARI SAMPING (SLIDE MENU) --- */
+        .side-nav {
+            position: fixed; top: 0; right: -300px; width: 280px; height: 100vh;
+            background: rgba(10, 10, 15, 0.85); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5); z-index: 1000;
+            display: flex; flex-direction: column; justify-content: center; padding: 40px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); border-left: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .side-nav.open { right: 0; }
+        
+        .side-nav-links { list-style: none; display: flex; flex-direction: column; gap: 25px; }
+        .side-nav-links a { 
+            text-decoration: none; color: #94a3b8; font-size: 1.1rem; font-weight: 600; 
+            transition: all 0.3s ease; display: inline-block;
+        }
+        .side-nav-links a:hover { 
+            color: #06b6d4; transform: translateX(5px); 
+        }
+
+        /* STRUKTUR UTAMA SECTIONS */
         .main-wrapper { max-width: 1100px; width: 100%; display: grid; grid-template-columns: 65% 35%; gap: 50px; align-items: flex-start; padding-top: 100px; }
         .left-column { text-align: left; width: 100%; }
         .header-section { position: relative; width: 100%; height: 160px; margin-bottom: 20px; }
-        .tagline { font-size: 0.85rem; background: linear-gradient(to right, #06b6d4, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; transition: all 0.3s ease; }
+        .tagline { font-size: 0.85rem; background: linear-gradient(to right, #06b6d4, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
         
         .title-long { font-size: 2.8rem; font-weight: 800; line-height: 1.15; color: #ffffff; letter-spacing: -1px; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); opacity: 1; transform: scale(1); transform-origin: top left; }
         .title-long.shrink { opacity: 0; transform: scale(0.7) translateY(-30px); pointer-events: none; }
-        .title-short { position: fixed; top: 32px; left: 8%; font-size: 1.25rem; font-weight: 700; color: #ffffff; opacity: 0; transform: translateY(15px); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); z-index: 1000; pointer-events: none; }
+        
+        /* Modifikasi posisi teks nama agar bergeser sedikit ke kiri agar tidak tabrakan dengan tombol garis tiga */
+        .title-short { position: fixed; top: 32px; left: 8%; font-size: 1.25rem; font-weight: 700; color: #ffffff; opacity: 0; transform: translateY(15px); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); z-index: 1000; pointer-events: none; max-width: 400px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .title-short.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
 
         .bio { font-size: 1rem; color: #94a3b8; line-height: 1.6; margin-bottom: 35px; text-align: justify; }
+        
+        /* IDs Anchor Target untuk keperluan Smooth Scroll */
+        .target-section { scroll-margin-top: 120px; }
+
         .section-title { font-size: 1.3rem; color: #ffffff; font-weight: 600; margin: 40px 0 20px 0; position: relative; padding-left: 14px; }
         .section-title::before { content: ''; position: absolute; left: 0; top: 3px; height: 18px; width: 4px; background: linear-gradient(#06b6d4, #d946ef); border-radius: 2px; }
         
         .right-column { display: flex; justify-content: center; width: 100%; }
-        .profile-wrapper { position: relative; width: 340px; height: 340px; background: linear-gradient(135deg, #06b6d4, #6366f1, #d946ef); padding: 4px; border-radius: 50%; box-shadow: 0 0 50px rgba(6, 182, 212, 0.25); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, position, top; }
-        .profile-wrapper.shrink { position: fixed; top: 20px; right: 8%; width: 50px; height: 50px; box-shadow: 0 0 15px rgba(6, 182, 212, 0.4); z-index: 1000; }
+        /* Perubahan will-change untuk performa optimal di HP */
+        .profile-wrapper { position: relative; width: 340px; height: 340px; background: linear-gradient(135deg, #06b6d4, #6366f1, #d946ef); padding: 4px; border-radius: 50%; box-shadow: 0 0 50px rgba(6, 182, 212, 0.25); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); transform-origin: center center; }
+        /* Modifikasi posisi foto saat mengecil di desktop agar lebih seimbang di sebelah kiri tombol garis tiga */
+        .profile-wrapper.shrink { position: fixed; top: 20px; right: 12%; width: 50px; height: 50px; box-shadow: 0 0 15px rgba(6, 182, 212, 0.4); z-index: 1000; }
         .profile-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #09090b; display: block; }
         
         .skills-container { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; width: 100%; }
         .skill-badge { background: rgba(15, 23, 42, 0.6); color: #06b6d4; padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; border: 1px solid rgba(6, 182, 212, 0.3); transition: all 0.3s ease; }
         
         .list-container { width: 100%; }
-        
-        /* GAYA KARTU UTAMA INDUK ORGANISASI */
         .card { 
             width: 100%; background: rgba(15, 23, 42, 0.5); padding: 22px; border-radius: 16px; margin-bottom: 18px; 
-            border: 1px solid rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px);
-            border-left: 4px solid #06b6d4 !important;
-            opacity: 0; transform: translateY(35px) scale(0.97); 
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
+            border: 1px solid rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border-left: 4px solid #06b6d4 !important;
+            opacity: 0; transform: translateY(35px) scale(0.97); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
         }
         .card.reveal { opacity: 1; transform: translateY(0) scale(1); }
+        @media (min-width: 851px) { .card:hover { border-color: rgba(6, 182, 212, 0.4); background: rgba(30, 27, 75, 0.4); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5); transform: translateY(-4px); } }
         
         .card h3 { font-size: 1.1rem; color: #ffffff; font-weight: 700; margin-bottom: 12px; }
-        
-        /* GAYA SUB-KARTU JABATAN BERLAPIS (NESTED SUB-ROLES) */
-        .sub-experience-item {
-            padding-left: 15px;
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 15px;
-        }
+        .sub-experience-item { padding-left: 15px; border-left: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 15px; }
         .sub-experience-item:last-child { margin-bottom: 0; }
-        
         .sub-experience-item .role { font-size: 0.88rem; color: #06b6d4; font-weight: 600; margin-bottom: 2px; }
         .sub-experience-item .sub-role { font-size: 0.78rem; color: #a3a3a3; margin-bottom: 4px; }
         .sub-experience-item .year { font-size: 0.8rem; color: #64748b; margin-bottom: 6px; font-weight: 500; }
@@ -72,11 +109,11 @@
         .email-link:hover { color: #06b6d4; }
         
         @media (max-width: 850px) {
-            .main-wrapper { grid-template-columns: 1fr; gap: 40px; }
+            .main-wrapper { grid-template-columns: 1fr; gap: 40px; padding-top: 60px; }
             .right-column { grid-row: 1; }
-            .title-short { max-width: 220px; left: 5%; }
+            .title-short { max-width: 180px; left: 5%; top: 34px; font-size: 1.15rem; }
             .profile-wrapper { width: 240px; height: 240px; }
-            .profile-wrapper.shrink { width: 45px; height: 45px; right: 5%; }
+            .profile-wrapper.shrink { width: 42px; height: 45px; right: 18%; top: 22px; }
             .title-long { font-size: 2.3rem; }
             .header-section { height: auto; }
             .card { background: rgba(30, 27, 75, 0.25) !important; border-color: rgba(6, 182, 212, 0.15) !important; }
@@ -85,9 +122,27 @@
 </head>
 <body>
     <div class="fixed-header-zone" id="headerZone"></div>
+
+    <!-- TOREK / TOMBOL GARIS TIGA INTERAKTIF -->
+    <div class="menu-toggle" id="menuToggle">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+
+    <!-- PANEL MENU NAVIGASI SLIDE OUT -->
+    <nav class="side-nav" id="sideNav">
+        <ul class="side-nav-links">
+            <li><a href="#about" class="menu-item">About Me</a></li>
+            <li><a href="#skills-section" class="menu-item">Technical Skills</a></li>
+            <li><a href="#experience-section" class="menu-item">Experience & Organizations</a></li>
+            <li><a href="#contact-section" class="menu-item">Contact Me</a></li>
+        </ul>
+    </nav>
+
     <div class="main-wrapper">
         <!-- Kolom Kiri: Konten Informasi Lengkap -->
-        <div class="left-column">
+        <div class="left-column" id="about">
             <div class="header-section">
                 <div class="tagline" id="taglineText">Telecommunication Engineering Student</div>
                 <h1 class="title-long" id="titleLong">Engineering the future of connectivity through data and design.</h1>
@@ -96,11 +151,14 @@
 
             <p class="bio">Hi, I'm Eirene Kezia Samangun — a Telecommunication Engineering student at Telkom University with strong analytical, organizational, leadership, and technical skills. Experienced in antenna design, financial management, team coordination, and student organization leadership. Adaptable, fast learner, and motivated to contribute in academic, organizational, and professional environments.</p>
 
-            <h2 class="section-title">Technical Skills</h2>
-            <div class="skills-container">
-                <div class="skill-badge">CST Studio Suite</div><div class="skill-badge">MATLAB</div><div class="skill-badge">VS Code</div>
-                <div class="skill-badge">GitHub</div><div class="skill-badge">Docker</div><div class="skill-badge">Cisco Packet Tracer</div>
-                <div class="skill-badge">Python / C++</div>
+            <!-- Anchor ID untuk lompatan link Technical Skills -->
+            <div id="skills-section" class="target-section">
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="skills-container">
+                    <div class="skill-badge">CST Studio Suite</div><div class="skill-badge">MATLAB</div><div class="skill-badge">VS Code</div>
+                    <div class="skill-badge">GitHub</div><div class="skill-badge">Docker</div><div class="skill-badge">Cisco Packet Tracer</div>
+                    <div class="skill-badge">Python / C++</div>
+                </div>
             </div>
 
             <h2 class="section-title">Education</h2>
@@ -112,72 +170,76 @@
                 </div>
             </div>
 
-            <h2 class="section-title">Experience & Organizations</h2>
-            <div class="list-container">
-                
-                <!-- 1. KELOMPOK LAB (MBC Lab) -->
-                <div class="card">
-                    <h3>MBC Laboratory</h3>
-                    <div class="sub-experience-item">
-                        <div class="role">Laboratory Teaching Assistant</div>
-                        <div class="sub-role">Mobile Application, Big Data, and Cybersecurity</div>
-                        <div class="year">Present</div>
-                        <p>Guided laboratory practicums, assisted students in understanding technical course materials, and supported laboratory research initiatives.</p>
+            <!-- Anchor ID untuk lompatan link Experience & Organizations -->
+            <div id="experience-section" class="target-section">
+                <h2 class="section-title">Experience & Organizations</h2>
+                <div class="list-container">
+                    
+                    <!-- 1. MBC Lab -->
+                    <div class="card">
+                        <h3>MBC Laboratory</h3>
+                        <div class="sub-experience-item">
+                            <div class="role">Laboratory Teaching Assistant</div>
+                            <div class="sub-role">Mobile Application, Big Data, and Cybersecurity</div>
+                            <div class="year">Present</div>
+                            <p>Guided laboratory practicums, assisted students in understanding technical course materials, and supported laboratory research initiatives.</p>
+                        </div>
                     </div>
-                </div>
-                
-                <!-- 2. KELOMPOK DPA HMTT (2 Pengalaman Jadi Satu Box Efisien) -->
-                <div class="card">
-                    <h3>DPA HMTT</h3>
-                    <div class="sub-experience-item">
-                        <div class="role">Treasurer</div>
-                        <div class="year">Present</div>
-                        <p>Managed organizational budgeting, financial reporting, and fund allocation while ensuring transparency and supporting effective decision-making across multiple divisions.</p>
+                    
+                    <!-- 2. DPA HMTT -->
+                    <div class="card">
+                        <h3>DPA HMTT</h3>
+                        <div class="sub-experience-item">
+                            <div class="role">Treasurer</div>
+                            <div class="year">Present</div>
+                            <p>Managed organizational budgeting, financial reporting, and fund allocation while ensuring transparency and supporting effective decision-making across multiple divisions.</p>
+                        </div>
+                        <div class="sub-experience-item">
+                            <div class="role">Parliamentary Staff – Commission 2</div>
+                            <div class="year">2024 - 2025</div>
+                            <p>Handled Legislative aspirations, documentation, and coordinated parliamentary visitation.</p>
+                        </div>
                     </div>
-                    <div class="sub-experience-item">
-                        <div class="role">Parliamentary Staff – Commission 2</div>
-                        <div class="year">2024 - 2025</div>
-                        <p>Handled Legislative aspirations, documentation, and coordinated parliamentary visitation.</p>
-                    </div>
-                </div>
 
-                <!-- 3. KELOMPOK MAGANG WORK (PT Radar) -->
-                <div class="card">
-                    <h3>PT. Radar Telekomunikasi Indonesia</h3>
-                    <div class="sub-experience-item">
-                        <div class="role">Antenna Designer (Intern)</div>
-                        <div class="year">June 2026 - July 2026</div>
-                        <p>Responsible for designing and simulating antennas using CST Studio Suite software to support telecommunication radar development projects.</p>
+                    <!-- 3. PT Radar Telekomunikasi Indonesia -->
+                    <div class="card">
+                        <h3>PT. Radar Telekomunikasi Indonesia</h3>
+                        <div class="sub-experience-item">
+                            <div class="role">Antenna Designer (Intern)</div>
+                            <div class="year">June 2026 - July 2026</div>
+                            <p>Responsible for designing and simulating antennas using CST Studio Suite software to support telecommunication radar development projects.</p>
+                        </div>
                     </div>
-                </div>
 
-                <!-- 4. KELOMPOK UKM PERMISI (2 Pengalaman Jadi Satu Box Efisien) -->
-                <div class="card">
-                    <h3>UKM PERMISI Tel-U</h3>
-                    <div class="sub-experience-item">
-                        <div class="role">President</div>
-                        <div class="year">2024 - 2025</div>
-                        <p>Led organization planning, decision-making, and execution across programs.</p>
+                    <!-- 4. UKM PERMISI Tel-U -->
+                    <div class="card">
+                        <h3>UKM PERMISI Tel-U</h3>
+                        <div class="sub-experience-item">
+                            <div class="role">President</div>
+                            <div class="year">2024 - 2025</div>
+                            <p>Led organization planning, decision-making, and execution across programs.</p>
+                        </div>
+                        <div class="sub-experience-item">
+                            <div class="role">Financial Source Department Coordinator</div>
+                            <div class="year">2023 - 2024</div>
+                            <p>Directed fundraising strategies and ensured financial support for programs.</p>
+                        </div>
                     </div>
-                    <div class="sub-experience-item">
-                        <div class="role">Financial Source Department Coordinator</div>
-                        <div class="year">2023 - 2024</div>
-                        <p>Directed fundraising strategies and ensured financial support for programs.</p>
-                    </div>
-                </div>
 
-                <!-- 5. KELOMPOK KEPANITIAAN (ASTERISK & GATHRAK) -->
-                <div class="card">
-                    <h3>Campus Committees</h3>
-                    <div class="sub-experience-item">
-                        <div class="role">Event Committee Member / Treasurer (ASTERISK & GATHRAK)</div>
-                        <div class="year">2025</div>
-                        <p>Assisted in event logistics for ASTERISK, and managed budgeting, financial reporting, and expenditure tracking for GATHRAK.</p>
+                    <!-- 5. Campus Committees -->
+                    <div class="card">
+                        <h3>Campus Committees</h3>
+                        <div class="sub-experience-item">
+                            <div class="role">Event Committee Member / Treasurer (ASTERISK & GATHRAK)</div>
+                            <div class="year">2025</div>
+                            <p>Assisted in event logistics for ASTERISK, and managed budgeting, financial reporting, and expenditure tracking for GATHRAK.</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="footer-action">
+            <!-- Anchor ID untuk lompatan link Contact Me -->
+            <div class="footer-action id="contact-section" class="target-section">
                 <a href="https://linkedin.com" target="_blank" class="social-btn">Connect on LinkedIn</a>
                 <a href="mailto:eirenekezias@gmail.com" class="email-link">eirenekezias@gmail.com</a>
             </div>
@@ -191,7 +253,7 @@
         </div>
     </div>
 
-    <!-- SCRIPT AKSELERASI GRAFIS & ANIMASI BOLAK-BALIK -->
+    <!-- SCRIPT UTAMA: PENGENDALI HAMBURGER MENU & SMOOTH SCROLL ACCELERATION -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const cards = document.querySelectorAll('.card');
@@ -200,9 +262,27 @@
             const profileBox = document.getElementById('profileBox');
             const headerZone = document.getElementById('headerZone');
             const taglineText = document.getElementById('taglineText');
+            
+            const menuToggle = document.getElementById('menuToggle');
+            const sideNav = document.getElementById('sideNav');
+            const menuItems = document.querySelectorAll('.menu-item');
 
+            // 1. LOGIKA BUKA-TUTUP HAMBURGER MENU
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('open');
+                sideNav.classList.toggle('open');
+            });
+
+            // 2. OTOMATIS MENUTUP MENU SAAT SALAH SATU PILIHAN DIKLIK
+            menuItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    menuToggle.classList.remove('open');
+                    sideNav.classList.remove('open');
+                });
+            });
+
+            // 3. LOGIKA ANCHOR SCROLL TRACKING
             let ticking = false;
-
             function updateScrollAnimation() {
                 if (window.scrollY > 100) {
                     headerZone.classList.add('active');
@@ -227,6 +307,7 @@
                 }
             }, { passive: true });
 
+            // 4. TRANSISI REVEAL KARTU
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
