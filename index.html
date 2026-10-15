@@ -8,65 +8,66 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         
         body { 
-            background: radial-gradient(circle at top right, #1e1b4b 0%, #09090b 60%), radial-gradient(circle at bottom left, #020617 0%, #09090b 80%);
+            /* GRADASI MULTI-WARNA BARU: Gabungan Cyan, Ungu, dan Indigo yang super kelihatan gradasinya */
+            background: linear-gradient(135deg, #020617 0%, #0f172a 40%, #1e1b4b 75%, #311042 100%);
             color: #e2e8f0; min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 80px 20px; overflow-x: hidden;
         }
 
         .main-wrapper { max-width: 1100px; width: 100%; display: grid; grid-template-columns: 65% 35%; gap: 60px; align-items: flex-start; }
         .left-column { text-align: left; width: 100%; }
         
-        .tagline { font-size: 0.85rem; background: linear-gradient(to right, #38bdf8, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+        /* Tagline dengan gradasi warna neon cyan ke pink menyala */
+        .tagline { font-size: 0.85rem; background: linear-gradient(to right, #06b6d4, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
         h1 { font-size: 3rem; font-weight: 800; line-height: 1.15; color: #ffffff; margin-bottom: 25px; letter-spacing: -1px; }
         .bio { font-size: 1rem; color: #94a3b8; line-height: 1.6; margin-bottom: 35px; text-align: justify; }
         
         .section-title { font-size: 1.3rem; color: #ffffff; font-weight: 600; margin: 40px 0 20px 0; position: relative; padding-left: 14px; }
-        .section-title::before { content: ''; position: absolute; left: 0; top: 3px; height: 18px; width: 4px; background: linear-gradient(#38bdf8, #6366f1); border-radius: 2px; }
+        .section-title::before { content: ''; position: absolute; left: 0; top: 3px; height: 18px; width: 4px; background: linear-gradient(#06b6d4, #d946ef); border-radius: 2px; }
         
         .right-column { display: flex; justify-content: center; position: sticky; top: 80px; height: max-content; width: 100%; }
-        .profile-wrapper { position: relative; width: 340px; height: 340px; background: linear-gradient(135deg, #38bdf8, #a855f7, #6366f1); padding: 4px; border-radius: 50%; box-shadow: 0 0 50px rgba(99, 102, 241, 0.25); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
-        .profile-wrapper:hover { transform: scale(1.03); box-shadow: 0 0 60px rgba(99, 102, 241, 0.4); }
+        
+        /* Lingkaran foto dengan gradasi warna neon menyala tajam */
+        .profile-wrapper { position: relative; width: 340px; height: 340px; background: linear-gradient(135deg, #06b6d4, #6366f1, #d946ef); padding: 4px; border-radius: 50%; box-shadow: 0 0 50px rgba(6, 182, 212, 0.25); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .profile-wrapper:hover { transform: scale(1.03); box-shadow: 0 0 60px rgba(217, 70, 239, 0.4); }
         .profile-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #09090b; display: block; }
         
         .skills-container { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; width: 100%; }
-        .skill-badge { background: rgba(30, 27, 75, 0.4); color: #38bdf8; padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; border: 1px solid rgba(56, 189, 248, 0.25); transition: all 0.3s ease; }
-        .skill-badge:hover { background: rgba(56, 189, 248, 0.15); border-color: #38bdf8; transform: translateY(-2px); }
+        .skill-badge { background: rgba(15, 23, 42, 0.6); color: #06b6d4; padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; border: 1px solid rgba(6, 182, 212, 0.3); transition: all 0.3s ease; }
+        .skill-badge:hover { background: rgba(6, 182, 212, 0.15); border-color: #06b6d4; transform: translateY(-2px); }
         
         .list-container { width: 100%; }
         
-        /* MODERN INTERACTIVE CARD STYLE (Mengatasi Efek Flat Kotak Biasa) */
+        /* KOTAK KARDUS GLOW INTERAKTIF */
         .card { 
-            width: 100%; background: rgba(17, 24, 39, 0.45); padding: 22px; border-radius: 16px; margin-bottom: 18px; 
+            width: 100%; background: rgba(15, 23, 42, 0.5); padding: 22px; border-radius: 16px; margin-bottom: 18px; 
             border: 1px solid rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px);
             
-            /* Animasi Awal: Menghilang dan bergeser ke bawah menanti di-scroll */
-            opacity: 0; transform: translateY(40px) scale(0.98); 
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
+            /* Setelan Awal Animasi (Menghilang halus menanti di-scroll) */
+            opacity: 0; transform: translateY(35px) scale(0.97); 
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1); 
         }
         
-        /* Memicu transisi halus saat mendeteksi scroll */
+        /* Aktif saat masuk area scroll */
         .card.reveal { opacity: 1; transform: translateY(0) scale(1); }
         
-        /* Efek Hover Keren ala Cybersecurity */
         .card:hover { 
-            border-color: rgba(99, 102, 241, 0.4); 
-            background: rgba(24, 24, 37, 0.7); 
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(99, 102, 241, 0.1); 
+            border-color: rgba(6, 182, 212, 0.4); 
+            background: rgba(30, 27, 75, 0.4); 
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(6, 182, 212, 0.15); 
             transform: translateY(-4px) scale(1.01); 
         }
         
-        .card h3 { font-size: 1.05rem; color: #ffffff; font-weight: 600; letter-spacing: -0.2px; }
-        .card .role { font-size: 0.88rem; color: #38bdf8; font-weight: 500; margin: 4px 0 2px 0; }
+        .card h3 { font-size: 1.05rem; color: #ffffff; font-weight: 600; }
+        .card .role { font-size: 0.88rem; color: #06b6d4; font-weight: 500; margin: 4px 0 2px 0; }
         .card .sub-role { font-size: 0.78rem; color: #a3a3a3; margin-bottom: 6px; }
         .card .year { font-size: 0.8rem; color: #64748b; margin-bottom: 8px; font-weight: 500; }
         .card p { font-size: 0.85rem; color: #94a3b8; line-height: 1.5; }
         
         .footer-action { display: flex; align-items: center; gap: 25px; margin-top: 40px; width: 100%; }
         .social-btn { text-decoration: none; padding: 14px 32px; border-radius: 12px; font-weight: 600; font-size: 0.95rem; background: linear-gradient(90deg, #0077b5 0%, #00a0dc 100%); color: #ffffff; box-shadow: 0 4px 20px rgba(0, 119, 181, 0.25); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-        .social-btn:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0, 119, 181, 0.4); }
-        .email-link { color: #64748b; text-decoration: none; font-size: 0.95rem; transition: color 0.2s; position: relative; }
-        .email-link::after { content: ''; position: absolute; width: 100%; transform: scaleX(0); height: 1px; bottom: -2px; left: 0; background-color: #38bdf8; transform-origin: bottom right; transition: transform 0.25s ease-out; }
-        .email-link:hover { color: #38bdf8; }
-        .email-link:hover::after { transform: scaleX(1); transform-origin: bottom left; }
+        .social-btn:hover { filter: brightness(1.1); transform: translateY(-2px); }
+        .email-link { color: #64748b; text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+        .email-link:hover { color: #06b6d4; }
         
         @media (max-width: 850px) { .main-wrapper { grid-template-columns: 1fr; gap: 40px; } .right-column { grid-row: 1; position: relative; top: 0; } .profile-wrapper { width: 240px; height: 240px; } h1 { font-size: 2.3rem; } }
     </style>
@@ -87,7 +88,7 @@
             </div>
 
             <h2 class="section-title">Education</h2>
-            <div class="card" style="border-left: 4px solid #a855f7 !important;">
+            <div class="card" style="border-left: 4px solid #d946ef !important;">
                 <h3>Telkom University</h3>
                 <div class="role">Bachelor of Telecommunication Engineering</div>
                 <div class="year">2023 - Present</div>
@@ -167,24 +168,24 @@
         </div>
     </div>
 
-    <!-- INTEGRASI SCRIPT ANIMASI SCROLL YANG BENAR -->
+    <!-- SCRIPT TRANSISI BERUNTUN BOLAK BALIK (INFINITE SCROLL) -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const cards = document.querySelectorAll('.card');
             
-            // Menggunakan Intersection Observer untuk mendeteksi pergerakan scroll layar secara presisi
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        // Memicu kartu muncul perlahan dari bawah ke atas saat discroll
+                        // Muncul ketika di-scroll ke bawah
                         entry.target.classList.add('reveal');
-                        // Berhenti mengamati jika animasi sudah berjalan agar performa web tetap enteng
-                        observer.unobserve(entry.target); 
+                    } else {
+                        // KUNCI BOLAK-BALIK: Menghilang kembali ketika di-scroll ke atas menjauhi layar
+                        entry.target.classList.remove('reveal');
                     }
                 });
             }, { 
-                threshold: 0.15, // Kartu baru akan memicu animasi jika 15% areanya sudah masuk layar
-                rootMargin: "0px 0px -50px 0px" // Memberikan ruang animasi sebelum kartu terlihat utuh
+                threshold: 0.1, 
+                rootMargin: "0px 0px -40px 0px" 
             });
             
             cards.forEach(card => observer.observe(card));
